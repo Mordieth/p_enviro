@@ -48,11 +48,11 @@ const REGISTER_DIG_T1 = 0x88,
 const enviro = i2c.openSync(1)
 
 enviro.readI2cBlockSync(ADDR, REGISTER_DIG_T1, 2, buff)
-const DIG_T1 = buff.readUInt16LE()
+const DIG_T1 = buff.readUInt16BE()
 enviro.readI2cBlockSync(ADDR, REGISTER_DIG_T2, 2, buff)
-const DIG_T2 = buff.readInt16LE()
+const DIG_T2 = buff.readInt16BE()
 enviro.readI2cBlockSync(ADDR, REGISTER_DIG_T1, 2, buff)
-const DIG_T3 = buff.readInt16LE()
+const DIG_T3 = buff.readInt16BE()
 
 console.log(DIG_T1, DIG_T2, DIG_T3)
 
