@@ -47,30 +47,61 @@ const REGISTER_DIG_T1 = 0x88,
 
 const enviro = i2c.openSync(1)
 
-enviro.i2cRead(ADDR, 10, buff, (err, len, res) => {
-    console.log('read', err, len, res);
-})
+const DIG_T1 = enviro.readByteSync(ADDR, REGISTER_DIG_T1)
+const DIG_T2 = enviro.readByteSync(ADDR, REGISTER_DIG_T2)
+const DIG_T3 = enviro.readByteSync(ADDR, REGISTER_DIG_T3)
 
-enviro.readByte(ADDR, REGISTER_DIG_T1, (err, res) => {
-    console.log('byte', err, res)
-})
-enviro.readByte(ADDR, REGISTER_DIG_T1 + 1, (err, res) => {
-    console.log('byte 2', err, res)
-})
-enviro.readWord(ADDR, REGISTER_DIG_T1, (err, res) => {
-    console.log('word', err, res)
-})
+// enviro.i2cRead(ADDR, 10, buff, (err, len, res) => {
+//     console.log('read', err, len, res);
+// })
+
+// enviro.readByte(ADDR, REGISTER_DIG_T1, (err, res) => {
+//     console.log('byte', err, res)
+// })
+// enviro.readByte(ADDR, REGISTER_DIG_T1 + 1, (err, res) => {
+//     console.log('byte 2', err, res)
+// })
+// enviro.readWord(ADDR, REGISTER_DIG_T1, (err, res) => {
+//     console.log('word', err, res)
+// })
 
 // readTemp((err, val) => {
 //     console.log('temp', val)
 // })
 
-function readTemp() {
+setInterval(() => {
+    readTemp((err, res) => {
+        console.log('temp', err || res)
+    })
+})
 
+function readTemp(cb) {
+    async.parallel([
+        enviro.readByte.bind(this, ADDR, REGISTER_TEMPDATA_MSB),
+        enviro.readByte.bind(this, ADDR, REGISTER_TEMPDATA_LSB),
+        enviro.readByte.bind(this, ADDR, REGISTER_TEMPDATA_XLSB),
+    ], (err, res) => {
+        if (err)
+            return cb(err)
 
-    // raw_temp_msb=self._read_byte(REGISTER_TEMPDATA_MSB) # read raw temperature msb
-    // raw_temp_lsb=self._read_byte(REGISTER_TEMPDATA_LSB) # read raw temperature lsb
-    // raw_temp_xlsb=self._read_byte(REGISTER_TEMPDATA_XLSB) # read raw temperature xlsb
+        let raw = (res[0] << 12) + (res[1] << 4) + (res[2] >> 4)
+
+        let tempVar1 = (raw / 16384 - DIG_T1 / 1024) * DIG_T2
+        let tempVar2 = (raw / 131072 - DIG_T1 / 8192) * (raw / 131072 - DIG_T1 / 8192) * DIG_T3
+        let temp = (tempVar1 + tempVar2) * 5120
+
+        cb(null, temp)
+    })
+
+    // raw_temp_msb = self._read_byte(REGISTER_TEMPDATA_MSB) # read raw temperature msb
+    // raw_temp_lsb = self._read_byte(REGISTER_TEMPDATA_LSB) # read raw temperature lsb
+    // raw_temp_xlsb = self._read_byte(REGISTER_TEMPDATA_XLSB) # read raw temperature xlsb
+
+    // raw_temp = (raw_temp_msb << 12) + (raw_temp_lsb << 4) + (raw_temp_xlsb >> 4) # combine 3 bytes  msb 12 bits left, lsb 4 bits left, xlsb 4 bits right
+
+    // var1 = (raw_temp / 16384.0 - self.dig_T1 / 1024.0) * self.dig_T2 # formula for temperature from datasheet
+    // var2= (raw_temp / 131072.0 - self.dig_T1 / 8192.0) * (raw_temp / 131072.0 - self.dig_T1 / 8192.0) * self.dig_T3 # formula for temperature from datasheet
+    // temp= (var1 + var2) / 5120.0 # formula for temperature from datasheet
 }
 
 
