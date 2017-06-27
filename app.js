@@ -71,6 +71,19 @@ console.log(DIG_T1, DIG_T2, DIG_T3)
 //     console.log('temp', val)
 // })
 
+
+enviro.writeByteSync(ADR, REGISTER_SOFTRESET, 0xB6)
+wait(200)
+enviro.writeByteSync(ADR, REGISTER_CONTROL, CTRL_MEAS)
+wait(200)
+enviro.writeByteSync(ADR, REGISTER_CONFIG, CONFIG)
+// self._write_byte(REGISTER_SOFTRESET, 0xB6) # reset sensor
+// time.sleep(0.2) # little break
+// self._write_byte(REGISTER_CONTROL, CTRL_MEAS) #
+// time.sleep(0.2) # little break
+// self._write_byte(REGISTER_CONFIG, CONFIG) #
+// time.sleep(0.2)
+
 setInterval(() => {
     readTemp((err, res) => {
         console.log('temp', err || res)
@@ -116,6 +129,13 @@ function readTemp(cb) {
     // temp= (var1 + var2) / 5120.0 # formula for temperature from datasheet
 }
 
+function wait(ms) {
+    let start = Date.now().valueOf()
+    while (Date.now().valueOf() < start + ms)
+    {
+        
+    }    
+}
 
 /*
 
