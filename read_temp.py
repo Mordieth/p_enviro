@@ -1,5 +1,6 @@
 import websocket
 import thread
+import time
 from envirophat import weather
 
 def on_message(ws, message):
@@ -13,10 +14,12 @@ def on_close(ws):
 
 def on_open(ws):
     def run(*args):
-        temp = weather.temperature()
-        ws.send()
+        while True:
+            temp = weather.temperature()
+            ws.send()
+            time.sleep(1)
+            print('temp: ', temp)
         # ws.close()
-        print('temp: ', temp)
     thread.start_new_thread(run, ())
 
 if __name__ == "__main__":
