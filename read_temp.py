@@ -16,9 +16,9 @@ def on_open(ws):
     def run(*args):
         while True:
             temp = weather.temperature()
-            ws.send()
-            time.sleep(1)
+            ws.send(temp)
             print('temp: ', temp)
+            time.sleep(1)
         # ws.close()
     thread.start_new_thread(run, ())
 
