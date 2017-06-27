@@ -49,7 +49,7 @@ const enviro = i2c.open(0, main)
 
 function main(err) {
     if (err)
-        return console.error(err)
+        return console.error('conn', err)
 
     enviro.i2cRead(0xD0, 1, buff, (err, len, res) => {
         console.log(err, len, res);
