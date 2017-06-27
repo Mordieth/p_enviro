@@ -93,9 +93,12 @@ function readTemp(cb) {
         let raw = (res[0] << 12) + (res[1] << 4) + (res[2] >> 4)
         console.log(raw)
 
-        let tempVar1 = (raw / 16384 - DIG_T1 / 1024) * DIG_T2
-        let tempVar2 = (raw / 131072 - DIG_T1 / 8192) * (raw / 131072 - DIG_T1 / 8192) * DIG_T3
-        let temp = (tempVar1 + tempVar2) / 5120
+        // let tempVar1 = (raw / 16384 - DIG_T1 / 1024) * DIG_T2
+        // let tempVar2 = (raw / 131072 - DIG_T1 / 8192) * (raw / 131072 - DIG_T1 / 8192) * DIG_T3
+        // let temp = (tempVar1 + tempVar2) / 5120
+        tempVar1 = (raw / 16384.0 - DIG_T1 / 1024.0) * DIG_T2 // formula for temperature from datasheet
+        tempVar2 = (raw / 131072.0 - DIG_T1 / 8192.0) * (raw / 131072.0 - DIG_T1 / 8192.0) * DIG_T3 // formula for temperature from datasheet
+        temp = (tempVar1 + tempVar2) / 5120.0 // formula for temperature from datasheet
 
         cb(null, temp)
     })
