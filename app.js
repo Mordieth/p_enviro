@@ -77,6 +77,7 @@ wait(200)
 enviro.writeByteSync(ADDR, REGISTER_CONTROL, CTRL_MEAS)
 wait(200)
 enviro.writeByteSync(ADDR, REGISTER_CONFIG, CONFIG)
+wait(200)
 // self._write_byte(REGISTER_SOFTRESET, 0xB6) # reset sensor
 // time.sleep(0.2) # little break
 // self._write_byte(REGISTER_CONTROL, CTRL_MEAS) #
