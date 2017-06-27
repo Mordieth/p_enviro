@@ -1,3 +1,8 @@
+const async = require('async')
+const _ = require('lodash')
+const i2c = require('i2c-bus')
+
+const buff = Buffer.alloc(3)
 //default i2c adress
 const ADDR = 0x77
 //used for sealevel calc
@@ -39,6 +44,29 @@ const REGISTER_DIG_T1 = 0x88,
     REGISTER_PRESSDATA_MSB = 0xF7,
     REGISTER_PRESSDATA_LSB = 0xF8,
     REGISTER_PRESSDATA_XLSB = 0xF9
+
+const enviro = i2c.open(1, main)
+
+function main(err) {
+    if (err)
+        return console.error(err)
+
+    enviro.i2cRead(0xD0, 1, buff, (err, len, res) => {
+        console.log(err, len, res);
+    })
+
+    // readTemp((err, val) => {
+    //     console.log('temp', val)
+    // })
+}
+
+function readTemp() {
+
+
+    // raw_temp_msb=self._read_byte(REGISTER_TEMPDATA_MSB) # read raw temperature msb
+    // raw_temp_lsb=self._read_byte(REGISTER_TEMPDATA_LSB) # read raw temperature lsb
+    // raw_temp_xlsb=self._read_byte(REGISTER_TEMPDATA_XLSB) # read raw temperature xlsb
+}
 
 
 /*
