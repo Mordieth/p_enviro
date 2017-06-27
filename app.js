@@ -77,7 +77,9 @@ setInterval(() => {
 
 function readTemp(cb) {
     async.parallel([
-        enviro.readByte.bind(this, ADDR, REGISTER_TEMPDATA_MSB),
+        function (cb) {
+            enviro.readByte(ADDR, REGISTER_TEMPDATA_MSB, cb)
+        }
         // enviro.readByte.bind(this, ADDR, REGISTER_TEMPDATA_LSB),
         // enviro.readByte.bind(this, ADDR, REGISTER_TEMPDATA_XLSB),
     ], (err, res) => {
