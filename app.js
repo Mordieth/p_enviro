@@ -90,6 +90,7 @@ function readTemp(cb) {
         if (err)
             return cb(err)
 
+        console.log(res)
         let raw = (res[0] << 12) + (res[1] << 4) + (res[2] >> 4)
 
         let tempVar1 = (raw / 16384 - DIG_T1 / 1024) * DIG_T2
