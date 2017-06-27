@@ -2,7 +2,7 @@ const async = require('async')
 const _ = require('lodash')
 const i2c = require('i2c-bus')
 
-const buff = Buffer.alloc(3)
+const buff = Buffer.alloc(10)
 //default i2c adress
 const ADDR = 0x77
 //used for sealevel calc
@@ -47,7 +47,7 @@ const REGISTER_DIG_T1 = 0x88,
 
 const enviro = i2c.openSync(1)
 
-enviro.i2cRead(0xD0, 1, buff, (err, len, res) => {
+enviro.i2cRead(ADDR, 10, buff, (err, len, res) => {
     console.log('read', err, len, res);
 })
 
