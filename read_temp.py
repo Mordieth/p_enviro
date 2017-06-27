@@ -10,8 +10,7 @@ with SocketIO('localhost', 8000, LoggingNamespace) as socketIO:
     while True:
         temp = weather.temperature()
         socketIO.emit(temp)
-        time.sleep(1)
-
+        socketIO.wait(seconds=1)
 
 def on_connect():
     print('connect')
