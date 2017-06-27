@@ -9,6 +9,7 @@ with SocketIO('localhost', 8000, LoggingNamespace) as socketIO:
 
     while True:
         temp = weather.temperature()
+        print(temp)
         socketIO.emit(temp)
         socketIO.wait(seconds=1)
 
