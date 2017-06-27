@@ -30,4 +30,8 @@ io.on('connection', function (socket) {
     socket.on('error', (err) => {
         console.log('ws err', err)
     })
+
+    socket.on('disconnect', (err) => {
+        console.log('disconnect', err)
+    })
 });
