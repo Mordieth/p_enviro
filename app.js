@@ -48,7 +48,7 @@ const REGISTER_DIG_T1 = 0x88,
 const enviro = i2c.openSync(1)
 
 enviro.i2cRead(0xD0, 1, buff, (err, len, res) => {
-    console.log(err, len, res);
+    console.log('read', err, len, res);
 })
 
 // readTemp((err, val) => {
