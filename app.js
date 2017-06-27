@@ -72,11 +72,11 @@ console.log(DIG_T1, DIG_T2, DIG_T3)
 // })
 
 
-enviro.writeByteSync(ADR, REGISTER_SOFTRESET, 0xB6)
+enviro.writeByteSync(ADDR, REGISTER_SOFTRESET, 0xB6)
 wait(200)
-enviro.writeByteSync(ADR, REGISTER_CONTROL, CTRL_MEAS)
+enviro.writeByteSync(ADDR, REGISTER_CONTROL, CTRL_MEAS)
 wait(200)
-enviro.writeByteSync(ADR, REGISTER_CONFIG, CONFIG)
+enviro.writeByteSync(ADDR, REGISTER_CONFIG, CONFIG)
 // self._write_byte(REGISTER_SOFTRESET, 0xB6) # reset sensor
 // time.sleep(0.2) # little break
 // self._write_byte(REGISTER_CONTROL, CTRL_MEAS) #
@@ -133,7 +133,7 @@ function wait(ms) {
     let start = Date.now().valueOf()
     while (Date.now().valueOf() < start + ms)
     {
-        
+
     }    
 }
 
