@@ -9,6 +9,10 @@ function handler(req, res) {
     res.end(data)
 }
 
+app.on('connection', (socket) => {
+    console.log('connection!', socket)
+})
+
 io.on('connection', function (socket) {
     console.log('connection!')
     socket.on('*', function (data) {
