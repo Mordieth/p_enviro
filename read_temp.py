@@ -1,31 +1,23 @@
-import websocket
-import thread
-import time
+from socketIO_client import SocketIO, LoggingNamespace
 from envirophat import weather
+import time
 
-def on_message(ws, message):
-    print(message)
+def on_connect():
+    print('connect')
 
-def on_error(ws, error):
-    print(error)
+def on_disconnect():
+    print('disconnect')
 
-def on_close(ws):
-    print("### closed ###")
+def on_reconnect():
+    print('reconnect')
 
-def on_open(ws):
-    def run(*args):
-        while True:
-            temp = weather.temperature()
-            ws.send(temp)
-            print('temp: ', temp)
-            time.sleep(1)
-    thread.start_new_thread(run, ())
+socketIO = SocketIO('10.0.0.114', 3000, LoggingNamespace)
+socketIO.on('connect', on_connect)
+socketIO.on('disconnect', on_disconnect)
+socketIO.on('reconnect', on_reconnect)
 
-if __name__ == "__main__":
-    websocket.enableTrace(True)
-    ws = websocket.WebSocketApp("ws://10.0.0.114:3000",
-                                on_message = on_message,
-                                on_error = on_error,
-                                on_close = on_close)
-    ws.on_open = on_open
-    ws.run_forever()
+# socketIO.wait(seconds=1)
+while True:
+    temp = weather.temperature()
+    socketIO.emit(temp)
+    time.sleep(1)
