@@ -45,20 +45,15 @@ const REGISTER_DIG_T1 = 0x88,
     REGISTER_PRESSDATA_LSB = 0xF8,
     REGISTER_PRESSDATA_XLSB = 0xF9
 
-const enviro = i2c.open(1, true, main)
+const enviro = i2c.openSync(1, main)
 
-function main(err) {
-    if (err)
-        return console.error('conn', err)
+enviro.i2cRead(0xD0, 1, buff, (err, len, res) => {
+    console.log(err, len, res);
+})
 
-    enviro.i2cRead(0xD0, 1, buff, (err, len, res) => {
-        console.log(err, len, res);
-    })
-
-    // readTemp((err, val) => {
-    //     console.log('temp', val)
-    // })
-}
+// readTemp((err, val) => {
+//     console.log('temp', val)
+// })
 
 function readTemp() {
 
