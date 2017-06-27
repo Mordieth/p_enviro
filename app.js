@@ -51,6 +51,16 @@ enviro.i2cRead(ADDR, 10, buff, (err, len, res) => {
     console.log('read', err, len, res);
 })
 
+enviro.readByte(ADDR, REGISTER_DIG_T1, (err, res) => {
+    console.log('byte', err, res)
+})
+enviro.readByte(ADDR, REGISTER_DIG_T1 + 1, (err, res) => {
+    console.log('byte 2', err, res)
+})
+enviro.readWord(ADDR, REGISTER_DIG_T1, (err, res) => {
+    console.log('word', err, res)
+})
+
 // readTemp((err, val) => {
 //     console.log('temp', val)
 // })
