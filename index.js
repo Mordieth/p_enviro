@@ -1,37 +1,11 @@
-var app = require('http').createServer(handler)
-var io = require('socket.io')(app)
+const express = require('express')
+const app = express()
 
-app.listen(3000)
-
-function handler(req, res) {
-    console.log('request!')
-    res.writeHead(200)
-    res.end(data)
-}
-
-app.on('connection', (socket) => {
-    console.log('connection http', socket.id)
+app.all('*', function (req, res) {
+    console.log('new req', req.body, req.query)  
+    res.send()
 })
 
-app.on('error', (err) => {
-    console.log('app', err)
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
 })
-
-app.on('close', () => {
-    console.log('close')
-})
-
-io.on('connection', function (socket) {
-    console.log('connection socket')
-    socket.on('*', function (data) {
-        console.log(data)
-    });
-
-    socket.on('error', (err) => {
-        console.log('ws err', err)
-    })
-
-    socket.on('disconnect', (err) => {
-        console.log('disconnect', err)
-    })
-});
