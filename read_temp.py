@@ -19,7 +19,6 @@ def on_open(ws):
             ws.send(temp)
             print('temp: ', temp)
             time.sleep(1)
-        # ws.close()
     thread.start_new_thread(run, ())
 
 if __name__ == "__main__":
