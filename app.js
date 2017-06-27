@@ -47,9 +47,11 @@ const REGISTER_DIG_T1 = 0x88,
 
 const enviro = i2c.openSync(1)
 
-const DIG_T1 = enviro.readByteSync(ADDR, REGISTER_DIG_T1)
-const DIG_T2 = enviro.readByteSync(ADDR, REGISTER_DIG_T2)
-const DIG_T3 = enviro.readByteSync(ADDR, REGISTER_DIG_T3)
+const DIG_T1 = enviro.readWordSync(ADDR, REGISTER_DIG_T1)
+const DIG_T2 = enviro.readWordSync(ADDR, REGISTER_DIG_T2)
+const DIG_T3 = enviro.readWordSync(ADDR, REGISTER_DIG_T3)
+
+console.log(DIG_T1, DIG_T2, DIG_T3)
 
 // enviro.i2cRead(ADDR, 10, buff, (err, len, res) => {
 //     console.log('read', err, len, res);
