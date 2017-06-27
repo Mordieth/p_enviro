@@ -45,7 +45,7 @@ const REGISTER_DIG_T1 = 0x88,
     REGISTER_PRESSDATA_LSB = 0xF8,
     REGISTER_PRESSDATA_XLSB = 0xF9
 
-const enviro = i2c.open(1, main)
+const enviro = i2c.open(1, true, main)
 
 function main(err) {
     if (err)
