@@ -43,12 +43,20 @@ function csv(...str) {
 
     return ret;
 }
-
+/**
+ * 
+ * @param {*} n
+ *
+ * A	272.5
+ * B	-19.8
+ * C	0.3881
+ */
 function calcTemp(n) {
-    const b = 0.896119
-    const a = 0.7524846
+    const a = 272.5
+    const b = -19.8
+    const c = 0.3881
 
-    return round(n * a + b, 2)
+    return round(a + b * n + c * n * n, 2)
 }
 
 function round(value, decimals) {
