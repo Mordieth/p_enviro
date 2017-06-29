@@ -44,19 +44,24 @@ function csv(...str) {
  * 22 = 28
  * 21 = 26.8
  * 20 = 25.35
- * 24 = 28.58
+ * 24 = 28.58 ??
+ * 24 = 29.43
  *
+ * quad
  * A	272.5
  * B	-19.8
  * C	0.3881
+ *
+ * ae^bx
+ * A	6.466606
+ * B	0.0441937
  * @param {Number} n raw temp from pyhton
  */
 function calcTemp(n) {
-    const a = 272.5
-    const b = -19.8
-    const c = 0.3881
+    const a = 6.466606
+    const b = 0.0441937
 
-    return round(a + b * n + c * n * n, 2)
+    return round(a * Math.pow(b * n), 2)
 }
 
 function round(value, decimals) {
