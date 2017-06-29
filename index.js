@@ -20,11 +20,6 @@ app.listen(3000, function () {
     console.log('Example app listening on port 3000!')
 })
 
-//22 = 28
-//21 = 26.8
-//20 = 25.35
-//24 = 28.58
-
 function csv(...str) {
     if (!str) { return; }
 
@@ -43,13 +38,18 @@ function csv(...str) {
 
     return ret;
 }
+
 /**
- * 
- * @param {*} n
+ * Calculate temp from pyhton given temp.
+ * 22 = 28
+ * 21 = 26.8
+ * 20 = 25.35
+ * 24 = 28.58
  *
  * A	272.5
  * B	-19.8
  * C	0.3881
+ * @param {Number} n raw temp from pyhton
  */
 function calcTemp(n) {
     const a = 272.5
